@@ -1,12 +1,13 @@
 # ProjetoAppAC
-A base do projeto foi feita criando o projeto pelo instalaçao do laravel. 
+
+A base do projeto foi feita criando o projeto pelo instalaçao do laravel.
 
     composer create-project --prefer-dist laravel/laravel:^7.0 nome_do_projeto
 
 Foi clonado o reposítório do laradock para a pasta do projeto. Usei submodule porque o repositório já era versonado pelo git.
 
-    git submodule add https://github.com/Laradock/laradock.git
- 
+    git clone https://github.com/Laradock/laradock.git
+
 Na pasta laradock temos um arquivo chamado **env.example** com as configurações padrões para rodar o ambiente. Faça uma cópia:
 
     cp .env.example .env
@@ -20,10 +21,10 @@ Neste arquivo temos diversas variáveis para configurar relativas aos diversos s
     PHP_FPM_INSTALL_GNUPG=true # ao fazer instalação era solicitado esse pacote
     PHP_FPM_INSTALL_XDEBUG=true #habilitar xdebug nos containers `
 
-No cado das variáveis relacionadas ao MySQL, um detalhe foi a troca da porta de **3306** para **3307**. Isso porque localmente já havia sgbd usando aporta. Com isso consigo acessar o container usando uma GUI, como DBeavear. 
+No cado das variáveis relacionadas ao MySQL, um detalhe foi a troca da porta de **3306** para **3307**. Isso porque localmente já havia sgbd usando aporta. Com isso consigo acessar o container usando uma GUI, como DBeavear.
 
-Dentro da pasta do laradock, temos uma pasta do **nginx/sites/**. Existe uma confiugração de exemplo, ela foi renomeada e foi criada uma com o nome **appac.conf**:
-  
+Dentro da pasta do laradock, temos uma pasta do **nginx/sites/**. Existe uma confiugração de exemplo, ela foi renomeada e foi criada uma com o nome **appac.conf**. Renomeie também o **default.config** para **\*.config**:
+
     server_name appac.test; #Foi alterado para que acessemos no navegador esse endereço e carreguemos nosso projeto
     root /var/www/public;
     index index.php index.html index.htm;
@@ -32,7 +33,7 @@ Feito isso, precisamo adicionar na nossa máquina local o host para que direcion
 
     127.0.0.1       appac.test
 
-Para rodar o projeto basta usar comando docker-compose up mysql e nginx. Ele fará o build e subirá os containers. 
+Para rodar o projeto basta usar comando docker-compose up mysql e nginx. Ele fará o build e subirá os containers.
 
 ## XDEBUG
 
@@ -55,13 +56,13 @@ Para habilitarmos o XDebug, uma vez que instalamos, basta modifica os arquivos *
     xdebug.var_display_max_children=-1
     xdebug.var_display_max_data=-1
     xdebug.var_display_max_depth=-1
-    
+
 Para que tudo seja incorporado pelo container, basta fazer build novamente dos conatainers:
 
-    docker-compose build --no-cache workspace php-fpm 
-  
-Vá no menu *Run -> Add Configuration*. Ser criado um arquivo **launch.json**. Substitua o conteúdo do mesmo por: 
-     
+    docker-compose build --no-cache workspace php-fpm
+
+Vá no menu _Run -> Add Configuration_. Ser criado um arquivo **launch.json**. Substitua o conteúdo do mesmo por:
+
      {
       // Use IntelliSense to learn about possible attributes.
       // Hover to view descriptions of existing attributes.
@@ -85,5 +86,4 @@ Vá no menu *Run -> Add Configuration*. Ser criado um arquivo **launch.json**. S
       ]
       }
 
-Basta selecionar a opção no visual code para habilitar o debug e acessar a página pelo navegador. Se tudo estiver ok, será disparado o breakpoint marcado. 
-
+Basta selecionar a opção no visual code para habilitar o debug e acessar a página pelo navegador. Se tudo estiver ok, será disparado o breakpoint marcado.
