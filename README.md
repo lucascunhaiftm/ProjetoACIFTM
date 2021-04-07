@@ -1,7 +1,7 @@
 # ProjetoAppAC
 A base do projeto foi feita criando o projeto pelo instalaçao do laravel. 
 
-    laravel new nome_do_projeto
+    composer create-project --prefer-dist laravel/laravel:^7.0 nome_do_projeto
 
 Foi clonado o reposítório do laradock para a pasta do projeto. Usei submodule porque o repositório já era versonado pelo git.
 
