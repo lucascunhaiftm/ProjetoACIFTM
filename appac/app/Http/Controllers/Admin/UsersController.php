@@ -28,7 +28,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the user.
      *
-     * @param  \App\user  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function edit(user $user)
@@ -45,11 +45,12 @@ class UsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\user  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, user $user)
     {
+
         $user->roles()->sync($request->roles);
 
         return redirect()->route('admin.users.index');
@@ -58,11 +59,13 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\user  $user
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(user $user)
     {
+        $this->authorize('delete-user', $user);
+
         $user->roles()->detach();
         $user->delete();
 

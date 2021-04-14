@@ -31,11 +31,13 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id)}}"> <button type="button" class="btn btn-primary">Edit</button></a>
+                                    @can('delete-user', $user)
                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                                         @csrf
                                         {{ method_field('DELETE') }}
                                         <button type="submit" class="btn btn-warning">Delete</button></a>
                                     </form>
+                                    @endcan
                                 </td>
                             </tr>
                             @endforeach

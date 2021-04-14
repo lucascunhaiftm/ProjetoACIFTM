@@ -44,4 +44,45 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Verify if a user has any of the roles in the array
+     * @param array $roles
+     * @return Bolean
+     */
+    public function hasAnyRoles($roles)
+    {
+        if ($this->roles()->whereIn('name', $roles)->first()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Verify if a user has any of the roles in the array
+     * @param String $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if ($this->roles()->where('name', $role)->first()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Verify if the user has admin role.
+     * @return bool
+     */
+    public function isAdministrator()
+    {
+        if ($this->roles()->where('name', Role::ROLE_ADMIN)->first()) {
+            return true;
+        }
+
+        return false;
+    }
 }
